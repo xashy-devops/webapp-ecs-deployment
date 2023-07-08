@@ -30,7 +30,7 @@ jobs:
         - name: Upload to github packages
           run: mvn --batch-mode deploy
           env:
-            GithUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
 
         
