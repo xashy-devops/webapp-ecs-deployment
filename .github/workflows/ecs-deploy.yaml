@@ -26,7 +26,7 @@ jobs:
         ### use sonarqube to do code analysis. Ensure that you have a sonarqube server running and you've created a project. 
         - name: code analysis with sonarqube
           run: mvn sonar:sonar -Dsonar.projectKey=xashy-webapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
-        ## Upload to github packages 
+        ## Upload to github packages and ensure that you update the pom.xml at the level of distrubution management.
         - name: Upload to github packages
           run: mvn --batch-mode deploy
           env:
