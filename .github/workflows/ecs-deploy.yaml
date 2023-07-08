@@ -31,6 +31,35 @@ jobs:
           run: mvn --batch-mode deploy
           env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        ## set up authenticate to aws 
+        - name: authenticate to aws account
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+            aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+            aws-region: ${{secrets.AWS_REGION}} 
+        ## this steps permits github actions to login to ecr 
+        - name: Login to Amazon ECR
+          id: login-ecr
+          uses: aws-actions/amazon-ecr-login@v1 
+        ###  conatainerise artifact with maven , tag and push to ecr repo. 
+        - name: Build, tag and push 
+          id: build-image
+          env:
+            REGISTRY: ${{steps.login-ecr.outputs.registry}}
+            REPOSITORY: xashy-webapp
+            IMAGE_TAG: ${{github.sha}}
+          run: |
+            docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG
+            docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG 
+            echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+            
+            
+            
+
+            
+
+
         
 
         
