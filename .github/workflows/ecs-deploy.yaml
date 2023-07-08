@@ -54,6 +54,24 @@ jobs:
             docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG 
             echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+            ## github action should create a new task definition revision
+
+        - name: Fill in the new image ID in the Amazon ECS task definition
+          id: task-def
+          uses: aws-actions/amazon-ecs-render-task-definition@v1
+          with:
+              task-definition: task-definition.json
+              container-name: xashy-webapp
+              image: ${{ steps.build-image.outputs.image }}
+              
+        ### github action should update the service with the lastes task-definition revision. Makue sure you change the name of the cluster and service name 
+        - name: Deploy Amazon ECS task definition
+          uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+          with:
+            task-definition: ${{ steps.task-def.outputs.task-definition }}
+            service: xashywebapp-service
+            cluster: Xashy-web-apps-Cluster
+            wait-for-service-stability: true
             
             
 

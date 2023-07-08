@@ -10,8 +10,7 @@
 </head>
 <body>
 <h1 align="center">Welcome to Xashy Web Application Project.</h1>
-<h1 align="center">We are developing and supporting quality Software Solutions to millions of clients globally.
-	           We are raising millionaires in IT automation.
+<h1 align="center">We are developing an application for Xashy. We are using ECS as the platform of the application.
 we offer AWS and DevOps training and our next class starts in August 2nd </h1>
 <hr>
 <br>
