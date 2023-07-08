@@ -1,0 +1,36 @@
+name: Deploy to ECS 
+on:
+    push:
+      branches:
+        main
+    workflow_dispatch:
+jobs:
+   builddeploytoecs:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read 
+        packages: write  
+      steps:
+        ### clone the code from the runner 
+        - name: checkout code from repo 
+          uses: actions/checkout@v3
+        ### setup java and maven 
+        - name: setup java and maven environment    
+          uses: actions/setup-java@v3
+          with:
+            distribution: 'adopt'
+            java-version: '11'  
+        ### use maven to package artifact, when these step executes the artifact should be created. 
+        - name: package with maven 
+          run: mvn package 
+        ### use sonarqube to do code analysis. Ensure that you have a sonarqube server running and you've created a project. 
+        - name: code analysis with sonarqube
+          run: mvn sonar:sonar -Dsonar.projectKey=xashy-webapp -Dsonar.host.url=${{secrets.SONAR_HOST_URL}} -Dsonar.token=${{secrets.SONAR_LOGIN_TOKEN}}
+        ## Upload to github packages 
+        - name: Upload to github packages
+          run: mvn --batch-mode deploy
+          env:
+            GithUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
+
+        
