@@ -22,9 +22,9 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url></sonar.host.url>
-		<sonar.login></sonar.login>
-		<sonar.password></sonar.password> 
+		<sonar.host.url>http://3.80.66.204:9000/</sonar.host.url>
+		<sonar.login>admin</sonar.login>
+		<sonar.password>Strain22</sonar.password> 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -95,7 +95,7 @@
 	    <repository>
 	      <id>github</id>
 	      <name></name>
-	      <url>https://maven.pkg.github.com/xashy-devops/webapp-ecs-deployment</url>
+	      <url>https://maven.pkg.github.com/henrymorfaw/webapp-ecs-deployment-real</url>
 	    </repository>
 	    
 	    
