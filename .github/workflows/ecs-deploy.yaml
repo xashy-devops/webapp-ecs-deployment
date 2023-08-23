@@ -27,8 +27,8 @@ jobs:
           run: mvn --batch-mode deploy
           env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-            
-
+        - name: perform code analysis
+          run: mvn sonar:sonar
 
         
 
